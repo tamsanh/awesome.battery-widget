@@ -88,8 +88,6 @@ end
 
 function battery_widget:init(args)
     self.adapter = args.adapter or "BAT0"
-    self.ac_prefix = args.ac_prefix or "AC: "
-    self.battery_prefix = args.battery_prefix or "Bat: "
     self.limits = args.limits or {
         { 25, "red"   },
         { 50, "orange"},
@@ -97,7 +95,7 @@ function battery_widget:init(args)
     }
 
     self.widget_text = args.widget_text or (
-        "${AC_BAT}${color_on}${percent}%${color_off}${time_est}")
+        "${color_on}${percent}%${color_off}${time_est}")
 
     self.widget = wibox.widget.textbox()
     self.widget.set_align("right")
@@ -164,8 +162,6 @@ end
 function battery_widget:update()
     local ctx = self:get_state()
 
-    -- AC/battery prefix
-    ctx.AC_BAT  = ctx.ac_state == 1 and self.ac_prefix or self.battery_prefix
 
     -- Colors
     ctx.color_on = ""
