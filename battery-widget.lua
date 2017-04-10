@@ -95,7 +95,7 @@ function battery_widget:init(args)
     }
 
     self.widget_text = args.widget_text or (
-        "${color_on}${percent}%${color_off} [${time_est}]")
+        " ${color_on}${percent}%${color_off} [${time_est}]")
 
     self.widget = wibox.widget.textbox()
     self.widget.set_align("right")
