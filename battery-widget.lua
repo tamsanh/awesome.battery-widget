@@ -198,10 +198,7 @@ function battery_widget:update()
     if ctx.time_left then
         ctx.hours   = math.floor((ctx.time_left))
         ctx.minutes = math.floor((ctx.time_left - ctx.hours) * 60)
-        if ctx.hours > 0
-          then ctx.time_text = ctx.hours .. "h " .. ctx.minutes .. "m"
-          else ctx.time_text =                      ctx.minutes .. "m"
-        end
+        ctx.time_text = string.format("%02d:%02d", ctx.hours, ctx.minutes)
         ctx.time_est = ctx.time_text
     end
 
