@@ -163,15 +163,19 @@ function battery_widget:update()
     local ctx = self:get_state()
 
 
-    -- Colors
-    ctx.color_on = ""
-    ctx.color_off = ""
-    if ctx.percent then
-      for k, v in ipairs(self.limits) do
-          if ctx.percent <= v[1] then
-              ctx.color_on, ctx.color_off = color_tags(v[2])
-              break
-          end
+    -- Use color to indicate if charging
+
+    local is_charging = ctx.state == "charging"
+    if is_charging then
+      ctx.color_on, ctx.color_off = color_tags("white")
+    else
+      if ctx.percent then
+        for k, v in ipairs(self.limits) do
+            if ctx.percent <= v[1] then
+                ctx.color_on, ctx.color_off = color_tags(v[2])
+                break
+            end
+        end
       end
     end
 
