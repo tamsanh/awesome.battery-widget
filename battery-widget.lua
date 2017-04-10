@@ -165,8 +165,8 @@ function battery_widget:update()
 
     -- Use color to indicate if charging
 
-    local is_charging = ctx.state == "charging"
-    if is_charging then
+    local is_not_discharging = ctx.state ~= "discharging"
+    if is_not_discharging then
       ctx.color_on, ctx.color_off = color_tags("white")
     else
       if ctx.percent then
@@ -198,9 +198,12 @@ function battery_widget:update()
     if ctx.time_left then
         ctx.hours   = math.floor((ctx.time_left))
         ctx.minutes = math.floor((ctx.time_left - ctx.hours) * 60)
-        ctx.time_text = string.format("%02d:%02d", ctx.hours, ctx.minutes)
-        ctx.time_est = ctx.time_text
+    else
+        ctx.hours = 0
+        ctx.minutes = 0
     end
+    ctx.time_text = string.format("%02d:%02d", ctx.hours, ctx.minutes)
+    ctx.time_est = ctx.time_text
 
     -- capacity text
     if ctx.capacity and ctx.design then
